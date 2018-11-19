@@ -16,6 +16,7 @@ const cheight = canv_bg.height;
 
 const pwidth = 10;
 const pheight = cheight/10;
+const max_speed = 28;
 
 let w_pressed = false;
 let s_pressed = false;
@@ -131,6 +132,30 @@ function draw_background() {
     ctx_bg.restore();
 }
 
+function hit(cx, cy, rx, ry) {
+    let testX = cx;
+    let testY = cy;
+
+    if (cx < rx)
+        testX = rx;
+    else if (cx > rx + pwidth)
+        testX = rx + pwidth;
+
+    if (cy < ry)
+        testY = ry;
+    else if (cy > ry + pheight)
+        testY = ry + pheight;
+
+    let distX = cx - testX;
+    let distY = cy - testY;
+    let distance = Math.sqrt(distX*distX + distY*distY);
+
+    if (distance <= ball.radius)
+        return true;
+
+    return false;
+}
+
 function draw() {
     ctx_main.clearRect(0,0,cwidth,cheight);
     player1.draw();
@@ -142,5 +167,11 @@ function draw() {
     if (ball.y + ball.vy + ball.radius > cheight ||
         ball.y + ball.vy - ball.radius < 0)
         ball.vy = -ball.vy;
+    if (hit(ball.x + ball.vx, ball.y + ball.vy, player1.x, player1.y) ||
+        hit(ball.x + ball.vx, ball.y + ball.vy, player2.x, player2.y)) {
+        speed = Math.min(max_speed, Math.abs(ball.vx) + 1);
+        ball.vx = ball.vx > 0? -1 * speed: speed;
+    }
+
     window.requestAnimationFrame(draw);
 }
