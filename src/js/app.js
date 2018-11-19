@@ -58,6 +58,24 @@ let player2 = {
     }
 }
 
+let ball = {
+    x: cwidth/2,
+    y: cheight/2,
+    vx: 5,
+    vy: 2,
+    radius: 20,
+    color: "white",
+    draw: function() {
+        ctx_main.save();
+        ctx_main.beginPath();
+        ctx_main.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        ctx_main.closePath();
+        ctx_main.fillStyle = this.color;
+        ctx_main.fill();
+        ctx_main.restore();
+    }
+};
+
 draw_background();
 window.requestAnimationFrame(draw);
 
