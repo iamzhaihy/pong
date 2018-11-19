@@ -29,10 +29,9 @@ function draw_background() {
     ctx_bg.restore();
 }
 
-draw_background();
-
-ctx_ui.fillStyle = "red"
-ctx_ui.clearRect(0,0,cwidth,cheight);
-ctx_ui.fillRect(0,0,100,100);
-
-
+function draw() {
+    ctx_main.clearRect(0,0,cwidth,cheight);
+    player1.draw();
+    player2.draw();
+    window.requestAnimationFrame(draw);
+}
