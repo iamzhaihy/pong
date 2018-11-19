@@ -55,6 +55,10 @@ let player2 = {
         ctx_main.restore();
     }
 }
+
+draw_background();
+window.requestAnimationFrame(draw);
+
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 
