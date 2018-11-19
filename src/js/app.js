@@ -77,11 +77,11 @@ let ball = {
         ctx_main.fill();
         ctx_main.restore();
     },
-    reset: function(winner) {
+    reset: function() {
         this.x = cwidth/2;
         this.y = cheight/2;
-        this.vx = winner === 'player1'? 5: -5;
-        this.vy = 2;
+        this.vx = 0;
+        this.vy = 0;
     }
 };
 
@@ -188,13 +188,11 @@ function draw() {
 
     if (ball.x + ball.vx + ball.radius > cwidth){
         player1.score += 1;
-        ball.reset('player1');
         draw_score();
     }
 
     if (ball.x + ball.vx - ball.radius < 0) {
         player2.score += 1;
-        ball.reset('player2');
         draw_score();
     }
 
