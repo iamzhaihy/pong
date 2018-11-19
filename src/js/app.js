@@ -135,5 +135,12 @@ function draw() {
     ctx_main.clearRect(0,0,cwidth,cheight);
     player1.draw();
     player2.draw();
+    ball.draw();
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+    if (ball.y + ball.vy + ball.radius > cheight ||
+        ball.y + ball.vy - ball.radius < 0)
+        ball.vy = -ball.vy;
     window.requestAnimationFrame(draw);
 }
