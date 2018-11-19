@@ -26,6 +26,7 @@ let down_pressed = false;
 let player1 = {
     x: 0,
     y: 0,
+    score: 0,
     color: "white",
     draw: function() {
         if (w_pressed)
@@ -44,6 +45,7 @@ let player1 = {
 let player2 = {
     x: cwidth-pwidth,
     y: 0,
+    score: 0,
     color: "white",
     draw: function() {
         if (up_pressed)
@@ -74,6 +76,12 @@ let ball = {
         ctx_main.fillStyle = this.color;
         ctx_main.fill();
         ctx_main.restore();
+    },
+    reset: function(winner) {
+        this.x = cwidth/2;
+        this.y = cheight/2;
+        this.vx = winner === 'player1'? 5: -5;
+        this.vy = 2;
     }
 };
 
@@ -167,6 +175,17 @@ function draw() {
     if (ball.y + ball.vy + ball.radius > cheight ||
         ball.y + ball.vy - ball.radius < 0)
         ball.vy = -ball.vy;
+
+    if (ball.x + ball.vx + ball.radius > cwidth){
+        player1.score += 1;
+        ball.reset('player1');
+    }
+
+    if (ball.x + ball.vx - ball.radius < 0) {
+        player2.score += 1;
+        ball.reset('player2');
+    }
+
     if (hit(ball.x + ball.vx, ball.y + ball.vy, player1.x, player1.y) ||
         hit(ball.x + ball.vx, ball.y + ball.vy, player2.x, player2.y)) {
         speed = Math.min(max_speed, Math.abs(ball.vx) + 1);
