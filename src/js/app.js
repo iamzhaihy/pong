@@ -25,6 +25,7 @@ let down_pressed = false;
 let player1 = {
     x: 0,
     y: 0,
+    color: "white",
     draw: function() {
         if (w_pressed)
             this.y = Math.max(this.y-10, 0);
@@ -33,7 +34,7 @@ let player1 = {
             this.y = Math.min(this.y+10, cheight-pheight);
 
         ctx_main.save();
-        ctx_main.fillStyle = "white";
+        ctx_main.fillStyle = this.color;
         ctx_main.fillRect(this.x, this.y, pwidth, pheight);
         ctx_main.restore();
     }
@@ -42,6 +43,7 @@ let player1 = {
 let player2 = {
     x: cwidth-pwidth,
     y: 0,
+    color: "white",
     draw: function() {
         if (up_pressed)
             this.y = Math.max(this.y-10, 0);
@@ -50,7 +52,7 @@ let player2 = {
             this.y = Math.min(this.y+10, cheight-pheight);
 
         ctx_main.save();
-        ctx_main.fillStyle = "white";
+        ctx_main.fillStyle = this.color;
         ctx_main.fillRect(this.x, this.y, pwidth, pheight);
         ctx_main.restore();
     }
