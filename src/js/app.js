@@ -164,6 +164,16 @@ function hit(cx, cy, rx, ry) {
     return false;
 }
 
+function draw_score() {
+    ctx_ui.clearRect(0,0,cwidth,cheight);
+    ctx_ui.save();
+    ctx_ui.font = '50px Verdana';
+    ctx_ui.fillStyle = 'white';
+    ctx_ui.fillText(`${player1.score}`, 0.25*cwidth, 75);
+    ctx_ui.fillText(`${player2.score}`, 0.75*cwidth, 75);
+    ctx_ui.restore();
+}
+
 function draw() {
     ctx_main.clearRect(0,0,cwidth,cheight);
     player1.draw();
@@ -179,11 +189,13 @@ function draw() {
     if (ball.x + ball.vx + ball.radius > cwidth){
         player1.score += 1;
         ball.reset('player1');
+        draw_score();
     }
 
     if (ball.x + ball.vx - ball.radius < 0) {
         player2.score += 1;
         ball.reset('player2');
+        draw_score();
     }
 
     if (hit(ball.x + ball.vx, ball.y + ball.vy, player1.x, player1.y) ||
