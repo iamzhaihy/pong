@@ -17,6 +17,11 @@ const cheight = canv_bg.height;
 const pwidth = 10;
 const pheight = cheight/10;
 
+let w_pressed = false;
+let s_pressed = false;
+let up_pressed = false;
+let down_pressed = false;
+
 let player1 = {
     x: 0,
     y: 0,
@@ -50,6 +55,43 @@ let player2 = {
         ctx_main.restore();
     }
 }
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+
+function keyDownHandler(e) {
+    switch (e.key) {
+        case 'w':
+            w_pressed = true;
+            break;
+        case 's':
+            s_pressed = true;
+            break;
+        case 'ArrowUp':
+            up_pressed = true;
+            break;
+        case 'ArrowDown':
+            down_pressed = true;
+            break;
+    }
+}
+
+function keyUpHandler(e) {
+    switch (e.key) {
+        case 'w':
+            w_pressed = false;
+            break;
+        case 's':
+            s_pressed = false;
+            break;
+        case 'ArrowUp':
+            up_pressed = false;
+            break;
+        case 'ArrowDown':
+            down_pressed = false;
+            break;
+    }
+}
+
 function draw_background() {
     ctx_bg.save();
     ctx_bg.fillStyle = "black";
