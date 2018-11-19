@@ -14,6 +14,42 @@ let ctx_main = canv_main.getContext("2d");
 const cwidth = canv_bg.width;
 const cheight = canv_bg.height;
 
+const pwidth = 10;
+const pheight = cheight/10;
+
+let player1 = {
+    x: 0,
+    y: 0,
+    draw: function() {
+        if (w_pressed)
+            this.y = Math.max(this.y-10, 0);
+
+        if (s_pressed)
+            this.y = Math.min(this.y+10, cheight-pheight);
+
+        ctx_main.save();
+        ctx_main.fillStyle = "white";
+        ctx_main.fillRect(this.x, this.y, pwidth, pheight);
+        ctx_main.restore();
+    }
+};
+
+let player2 = {
+    x: cwidth-pwidth,
+    y: 0,
+    draw: function() {
+        if (up_pressed)
+            this.y = Math.max(this.y-10, 0);
+
+        if (down_pressed)
+            this.y = Math.min(this.y+10, cheight-pheight);
+
+        ctx_main.save();
+        ctx_main.fillStyle = "white";
+        ctx_main.fillRect(this.x, this.y, pwidth, pheight);
+        ctx_main.restore();
+    }
+}
 function draw_background() {
     ctx_bg.save();
     ctx_bg.fillStyle = "black";
