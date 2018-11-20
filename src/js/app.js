@@ -23,6 +23,9 @@ let s_pressed = false;
 let up_pressed = false;
 let down_pressed = false;
 
+let game_running = false;
+let curr_screen = 'game'; // game | game_over
+
 let player1 = {
     x: 0.1 * cwidth,
     y: 0.4 * cheight,
@@ -99,6 +102,19 @@ init_game();
 
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
+
+canv_ui.addEventListener('click', function(e){
+    if (curr_screen === 'game') {
+        game_running = !game_running;
+        draw();
+    } else if (curr_screen === 'game_over') {
+        new_game();
+        draw_score();
+        curr_screen = 'game';
+        game_running = true;
+        draw();
+    }
+});
 
 function keyDownHandler(e) {
     switch (e.key) {
@@ -230,6 +246,8 @@ function draw() {
         draw_score();
         if (player1.score === 10){
             game_over('player1');
+            game_running = false;
+            curr_screen = 'game_over';
         } else {
             ball.reset();
             ball.vx = 5;
@@ -242,6 +260,8 @@ function draw() {
         draw_score();
         if (player2.score === 10) {
             game_over('player2');
+            game_running = false;
+            curr_screen = 'game_over';
         } else {
             ball.reset();
             ball.vx = -5;
@@ -255,5 +275,6 @@ function draw() {
         ball.vx = ball.vx > 0? -1 * speed: speed;
     }
 
-    window.requestAnimationFrame(draw);
+    if (game_running)
+        game_frame = window.requestAnimationFrame(draw);
 }
