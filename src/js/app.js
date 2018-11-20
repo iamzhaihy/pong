@@ -95,8 +95,7 @@ let ball = {
     }
 };
 
-draw_background();
-window.requestAnimationFrame(draw);
+init_game();
 
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
@@ -182,6 +181,13 @@ function draw_score() {
     ctx_ui.fillText(`${player1.score}`, 0.25*cwidth, 75);
     ctx_ui.fillText(`${player2.score}`, 0.75*cwidth, 75);
     ctx_ui.restore();
+}
+
+function init_game() {
+    draw_background();
+    new_game();
+    draw_score();
+    draw();
 }
 
 function new_game() {
