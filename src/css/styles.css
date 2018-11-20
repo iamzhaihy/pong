@@ -3,6 +3,13 @@ canvas {
     border: 1px solid black;
 }
 
+.title {
+    font-size: 3em;
+    margin: 0.5em;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .container {
     width: 80%;
     margin: auto;
