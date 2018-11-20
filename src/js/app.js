@@ -174,6 +174,21 @@ function draw_score() {
     ctx_ui.restore();
 }
 
+function game_over(winner) {
+    ball.reset();
+
+    ctx_ui.save();
+    ctx_ui.font = '50px Verdana';
+    ctx_ui.fillStyle = 'white';
+
+    if (winner === 'player1')
+        ctx_ui.fillText('winner!', 0.20*cwidth, 150);
+    else
+        ctx_ui.fillText('winner!', 0.70*cwidth, 150);
+
+    ctx_ui.restore();
+}
+
 function draw() {
     ctx_main.clearRect(0,0,cwidth,cheight);
     player1.draw();
@@ -189,11 +204,25 @@ function draw() {
     if (ball.x + ball.vx + ball.radius > cwidth){
         player1.score += 1;
         draw_score();
+        if (player1.score === 10){
+            game_over('player1');
+        } else {
+            ball.reset();
+            ball.vx = 5;
+            ball.vy = 2;
+        }
     }
 
     if (ball.x + ball.vx - ball.radius < 0) {
         player2.score += 1;
         draw_score();
+        if (player2.score === 10) {
+            game_over('player2');
+        } else {
+            ball.reset();
+            ball.vx = -5;
+            ball.vy = 2;
+        }
     }
 
     if (hit(ball.x + ball.vx, ball.y + ball.vy, player1.x, player1.y) ||
