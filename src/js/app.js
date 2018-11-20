@@ -24,8 +24,8 @@ let up_pressed = false;
 let down_pressed = false;
 
 let player1 = {
-    x: 0,
-    y: 0,
+    x: 0.1 * cwidth,
+    y: 0.4 * cheight,
     score: 0,
     color: "white",
     draw: function() {
@@ -43,8 +43,8 @@ let player1 = {
 };
 
 let player2 = {
-    x: cwidth-pwidth,
-    y: 0,
+    x: 0.9 * cwidth,
+    y: 0.4 * cheight,
     score: 0,
     color: "white",
     draw: function() {
