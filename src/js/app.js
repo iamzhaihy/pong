@@ -2,10 +2,14 @@ let canv_bg = document.getElementById("canv_bg");
 let canv_ui = document.getElementById("canv_ui");
 let canv_main = document.getElementById("canv_main");
 
-for (c of [canv_bg, canv_main, canv_ui]) {
-    c.width = window.innerWidth * 0.8;
-    c.height = window.innerWidth * 0.8 * 9/16;
-}
+canv_bg.width = window.innerWidth * 0.8;
+canv_bg.height = window.innerWidth * 0.8 * 9/16;
+
+canv_main.width = window.innerWidth * 0.8;
+canv_main.height = window.innerWidth * 0.8 * 9/16;
+
+canv_ui.width = window.innerWidth * 0.8;
+canv_ui.height = window.innerWidth * 0.8 * 9/16;
 
 let ctx_bg = canv_bg.getContext("2d");
 let ctx_ui = canv_ui.getContext("2d");
