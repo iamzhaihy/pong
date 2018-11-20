@@ -39,6 +39,11 @@ let player1 = {
         ctx_main.fillStyle = this.color;
         ctx_main.fillRect(this.x, this.y, pwidth, pheight);
         ctx_main.restore();
+    },
+    reset: function() {
+        this.score = 0;
+        this.x = 0.1 * cwidth;
+        this.y = 0.4 * cheight;
     }
 };
 
@@ -58,6 +63,11 @@ let player2 = {
         ctx_main.fillStyle = this.color;
         ctx_main.fillRect(this.x, this.y, pwidth, pheight);
         ctx_main.restore();
+    },
+    reset: function() {
+        this.score = 0;
+        this.x = 0.9 * cwidth;
+        this.y = 0.4 * cheight;
     }
 }
 
@@ -172,6 +182,14 @@ function draw_score() {
     ctx_ui.fillText(`${player1.score}`, 0.25*cwidth, 75);
     ctx_ui.fillText(`${player2.score}`, 0.75*cwidth, 75);
     ctx_ui.restore();
+}
+
+function new_game() {
+    ball.reset();
+    ball.vx = 5;
+    ball.vy = 2;
+    player1.reset();
+    player2.reset();
 }
 
 function game_over(winner) {
