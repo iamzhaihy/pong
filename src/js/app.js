@@ -275,10 +275,10 @@ function draw() {
 
     if (hit(ball.x + ball.vx, ball.y + ball.vy, player1.x, player1.y) ||
         hit(ball.x + ball.vx, ball.y + ball.vy, player2.x, player2.y)) {
-        speed = Math.min(max_speed, Math.abs(ball.vx) + 1);
+        let speed = Math.min(max_speed, Math.abs(ball.vx) + 1);
         ball.vx = ball.vx > 0? -1 * speed: speed;
     }
 
     if (game_running)
-        game_frame = window.requestAnimationFrame(draw);
+        window.requestAnimationFrame(draw);
 }
