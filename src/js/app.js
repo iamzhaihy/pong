@@ -131,9 +131,11 @@ function keyDownHandler(e) {
             s_pressed = true;
             break;
         case 'ArrowUp':
+            e.preventDefault();
             up_pressed = true;
             break;
         case 'ArrowDown':
+            e.preventDefault();
             down_pressed = true;
             break;
     }
@@ -148,9 +150,11 @@ function keyUpHandler(e) {
             s_pressed = false;
             break;
         case 'ArrowUp':
+            e.preventDefault();
             up_pressed = false;
             break;
         case 'ArrowDown':
+            e.preventDefault();
             down_pressed = false;
             break;
     }
