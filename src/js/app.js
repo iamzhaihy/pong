@@ -2,14 +2,16 @@ let canv_bg = document.getElementById("canv_bg");
 let canv_ui = document.getElementById("canv_ui");
 let canv_main = document.getElementById("canv_main");
 
+const ratio = 9/16;
+
 canv_bg.width = window.innerWidth * 0.8;
-canv_bg.height = window.innerWidth * 0.8 * 9/16;
+canv_bg.height = window.innerWidth * 0.8 * ratio;
 
 canv_main.width = window.innerWidth * 0.8;
-canv_main.height = window.innerWidth * 0.8 * 9/16;
+canv_main.height = window.innerWidth * 0.8 * ratio;
 
 canv_ui.width = window.innerWidth * 0.8;
-canv_ui.height = window.innerWidth * 0.8 * 9/16;
+canv_ui.height = window.innerWidth * 0.8 * ratio;
 
 let ctx_bg = canv_bg.getContext("2d");
 let ctx_ui = canv_ui.getContext("2d");
@@ -235,9 +237,7 @@ function game_over(winner) {
 
 function draw() {
     ctx_main.clearRect(0,0,cwidth,cheight);
-    player1.draw();
-    player2.draw();
-    ball.draw();
+
     ball.x += ball.vx;
     ball.y += ball.vy;
 
@@ -248,6 +248,7 @@ function draw() {
     if (ball.x + ball.vx + ball.radius > cwidth){
         player1.score += 1;
         draw_score();
+
         if (player1.score === 10){
             game_over('player1');
             game_running = false;
@@ -262,6 +263,7 @@ function draw() {
     if (ball.x + ball.vx - ball.radius < 0) {
         player2.score += 1;
         draw_score();
+
         if (player2.score === 10) {
             game_over('player2');
             game_running = false;
@@ -273,11 +275,22 @@ function draw() {
         }
     }
 
-    if (hit(ball.x + ball.vx, ball.y + ball.vy, player1.x, player1.y) ||
-        hit(ball.x + ball.vx, ball.y + ball.vy, player2.x, player2.y)) {
-        let speed = Math.min(max_speed, Math.abs(ball.vx) + 1);
+    let hits_paddle1 = hit(ball.x + ball.vx, ball.y + ball.vy, player1.x, player1.y);
+    let hits_paddle2 = hit(ball.x + ball.vx, ball.y + ball.vy, player2.x, player2.y);
+
+    if ( hits_paddle1 || hits_paddle2) {
+        let speed = Math.min(max_speed, Math.abs(ball.vx) * 1.03);
         ball.vx = ball.vx > 0? -1 * speed: speed;
+
+        if (hits_paddle1)
+            ball.x = player1.x + pwidth + ball.radius;
+        else
+            ball.x = player2.x - ball.radius;
     }
+
+    player1.draw();
+    player2.draw();
+    ball.draw();
 
     if (game_running)
         window.requestAnimationFrame(draw);
